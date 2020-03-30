@@ -107,3 +107,4 @@ dist
 google-doc-common
 .gitignore
 .gitmodules
+*-lock.json

@@ -2,9 +2,12 @@ const app = require('./app');
 const config = require('./config/config');
 const logger = require('./config/logger');
 
+const {init : initCommon} = require('../google-doc-common/index');
+initCommon(process.env)
+
 const server = app.listen(config.port, () => {
     logger.info(`Starting server on port ${config.port}`);
-    logger.info(`Listening to port ${config.port}`);
+    logger.info(`Serer Started.. Listening to port ${config.port}`);
 });
 
 const exitHandler = () => {

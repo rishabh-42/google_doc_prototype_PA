@@ -9,6 +9,7 @@ const morgan = require('./config/morgan');
 const { jwtStrategy } = require('./config/passport');
 const { authLimiter } = require('./middlewares/rateLimiter');
 const { errorConverter, errorHandler } = require('./middlewares/error');
+const routes = require('./routes/v1');
 const AppError = require('./utils/AppError');
 
 const app = express();
@@ -34,14 +35,16 @@ app.use(compression());
 app.use(cors());
 app.options('*', cors());
 
-// // jwt authentication
-// app.use(passport.initialize());
-// passport.use('jwt', jwtStrategy);
+// jwt authentication
+app.use(passport.initialize());
+passport.use('jwt', jwtStrategy);
 
 // limit repeated failed requests to auth endpoints
 if (config.env === 'production') {
   app.use('/v1/auth', authLimiter);
 }
+
+app.use('/v1', routes);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
