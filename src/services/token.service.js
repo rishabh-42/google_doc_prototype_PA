@@ -5,9 +5,11 @@ const config = require('../config/config');
 const { Token } = require('../../google-doc-common/models/index');
 const AppError = require('../utils/AppError');
 
-const generateToken = (userId, expires, secret = config.jwt.secret) => {
+const generateToken = (userId,name, avtar, expires, secret = config.jwt.secret) => {
   const payload = {
     sub: userId,
+    name,
+    avtar,
     iat: moment().unix(),
     exp: expires.unix(),
   };

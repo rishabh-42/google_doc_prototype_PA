@@ -1,8 +1,7 @@
 const app = require('./app');
 const config = require('./config/config');
 const logger = require('./config/logger');
-
-const {init : initCommon} = require('../google-doc-common/index');
+const { init: initCommon } = require('../google-doc-common/index');
 initCommon(process.env)
 
 const server = app.listen(config.port, () => {

@@ -7,12 +7,12 @@ const userService = require('./user.service');
 const { Token } = require('../../google-doc-common//models/index');
 const AppError = require('../utils/AppError');
 
-const generateAuthTokens = async userId => {
+const generateAuthTokens = async (userId, name, avtar) => {
   const accessTokenExpires = moment().add(config.jwt.accessExpirationMinutes, 'minutes');
-  const accessToken = tokenService.generateToken(userId, accessTokenExpires);
+  const accessToken = tokenService.generateToken(userId, name, avtar, accessTokenExpires);
 
   const refreshTokenExpires = moment().add(config.jwt.refreshExpirationDays, 'days');
-  const refreshToken = tokenService.generateToken(userId, refreshTokenExpires);
+  const refreshToken = tokenService.generateToken(userId, name, avtar, refreshTokenExpires);
   await tokenService.saveToken(refreshToken, userId, refreshTokenExpires, 'refresh');
 
   return {
